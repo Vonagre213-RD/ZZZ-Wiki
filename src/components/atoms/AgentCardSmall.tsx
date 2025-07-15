@@ -63,7 +63,7 @@ export default function AgentCardSmall({ id, avatar, name, faction, attribute, s
 
             <Button onClick={() => handleFavorite(id)
             } className="h-8 w-8 absolute translate-x-36 -translate-y-2 hover:scale-105">
-                <img src={`/images/Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
+                <img src={`/images/ui_Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
             </Button>
             <Button className="hover:scale-105" onClick={() =>RedirectToAgentSection(id)}  title="Go to see more Section">
 
