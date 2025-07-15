@@ -20,15 +20,15 @@ export default function useIconCheck({factionName, attributeName, typeName, spec
 const attributes = [
   {
     name: "Fire",
-    url: "/images/ui_Icons/attributes/fireicon.png"
+    url: "/images/ui_Icons/attributes/fireIcon.png"
   },
   {
     name: "Electric",
-    url: "/images/ui_Icons/attributes/electricicon.png"
+    url: "/images/ui_Icons/attributes/electricIcon.png"
   },
   {
     name: "Ice",
-    url: "/images/ui_Icons/attributes/iceicon.png"
+    url: "/images/ui_Icons/attributes/iceIcon.png"
   },
   {
     name: "Frost",
@@ -40,11 +40,11 @@ const attributes = [
   },
   {
     name: "Ether",
-    url: "/images/ui_Icons/attributes/ethericon.png"
+    url: "/images/ui_Icons/attributes/etherIcon.png"
   },
   {
     name: "Physical",
-    url: "/images/ui_Icons/attributes/physicalicon.png"
+    url: "/images/ui_Icons/attributes/physicalIcon.png"
   }
 ];
 
