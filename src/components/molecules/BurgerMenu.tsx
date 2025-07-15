@@ -12,7 +12,8 @@ interface props {
 export default function BurguerMenu({ setNameFilter, setFactionFilter }: props) {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const routes = ['Inicio', 'Favoritos']
+    const routes = [
+        {name:'home', path:"/"}, {name:'favorites', path:"/Favorites"}]
 
     const handleBurgerMenu = () => {
         setIsOpen(!isOpen)
@@ -30,9 +31,9 @@ export default function BurguerMenu({ setNameFilter, setFactionFilter }: props) 
             <nav className={`flex flex-col w-full lg:items-center transition-all duration-700 gap-4 ${isOpen ? "max-h-160 mt-4" : "max-h-0 mt-0"} overflow-hidden
                 lg:flex-row lg:max-h-10 lg:justify-end`}>
                 {routes.map(b => (
-                    <NavButton key={b} activeClass='bg-fosfo-600' className="h-8 w-full p-2 focus:outline-none bg-fosfo-500 font-titles flex items-center justify-center rounded-md
-                    lg:w-40" to={`/${b}`}>
-                        {b}
+                    <NavButton key={b.name} activeClass='bg-fosfo-600' className="h-8 w-full p-2 focus:outline-none bg-fosfo-500 font-titles flex items-center justify-center rounded-md
+                    lg:w-40" to={`/${b.path}`}>
+                        {b.name}
                     </NavButton>
                 ))}
 

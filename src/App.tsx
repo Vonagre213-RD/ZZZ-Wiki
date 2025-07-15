@@ -24,8 +24,8 @@ function App() {
       </span>
 
       <Routes>
-        <Route path='/Inicio' element={<CharactersSection factionFilter={factionFilter} nameFilter={nameFilter} />} />
-        <Route path='/Favoritos' element={<FavoritesSection factionFilter={factionFilter} nameFilter={nameFilter} />} />
+        <Route path='/' element={<CharactersSection factionFilter={factionFilter} nameFilter={nameFilter} />} />
+        <Route path='/Favorites' element={<FavoritesSection factionFilter={factionFilter} nameFilter={nameFilter} />} />
         <Route path='/Mas/:id' element={<MoreInfoSection/>} />
       </Routes>
     </div>
