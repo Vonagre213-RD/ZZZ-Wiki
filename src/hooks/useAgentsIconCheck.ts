@@ -20,94 +20,94 @@ export default function useIconCheck({factionName, attributeName, typeName, spec
 const attributes = [
   {
     name: "Fire",
-    url: "/public/images/icons/attributes/fireicon.png"
+    url: "/public/images/ui_Icons/attributes/fireicon.png"
   },
   {
     name: "Electric",
-    url: "/public/images/icons/attributes/electricicon.png"
+    url: "/public/images/ui_Icons/attributes/electricicon.png"
   },
   {
     name: "Ice",
-    url: "/public/images/icons/attributes/iceicon.png"
+    url: "/public/images/ui_Icons/attributes/iceicon.png"
   },
   {
     name: "Frost",
-    url: "/public/images/icons/attributes/frostIcon.png"
+    url: "/public/images/ui_Icons/attributes/frostIcon.png"
   },
   {
     name: "Auric Ink",
-    url: "/public/images/icons/attributes/auricInkIcon.png"
+    url: "/public/images/ui_Icons/attributes/auricInkIcon.png"
   },
   {
     name: "Ether",
-    url: "/public/images/icons/attributes/ethericon.png"
+    url: "/public/images/ui_Icons/attributes/ethericon.png"
   },
   {
     name: "Physical",
-    url: "/public/images/icons/attributes/physicalicon.png"
+    url: "/public/images/ui_Icons/attributes/physicalicon.png"
   }
 ];
 
 const specialties = [
   {
     name: "Attack",
-    url: "/public/images/icons/specialty/attackIcon.png"
+    url: "/public/images/ui_Icons/specialty/attackIcon.png"
   },
   {
     name: "Stun",
-    url: "/public/images/icons/specialty/stunIcon.png"
+    url: "/public/images/ui_Icons/specialty/stunIcon.png"
   },
   {
     name: "Support",
-    url: "/public/images/icons/specialty/supportIcon.png"
+    url: "/public/images/ui_Icons/specialty/supportIcon.png"
   },
   {
     name: "Defense",
-    url: "/public/images/icons/specialty/defenseIcon.png"
+    url: "/public/images/ui_Icons/specialty/defenseIcon.png"
   },
   {
     name: "Anomaly",
-    url: "/public/images/icons/specialty/anomalyIcon.png"
+    url: "/public/images/ui_Icons/specialty/anomalyIcon.png"
   },
   {
     name: "Rupture",
-    url: "/public/images/icons/specialty/ruptureIcon.png"
+    url: "/public/images/ui_Icons/specialty/ruptureIcon.png"
   }
 ]
 
 const types = [
   {
     name: "Pierce",
-    url:'/public/images/icons/aTypes/pierceIcon.png'
+    url:'/public/images/ui_Icons/aTypes/pierceIcon.png'
   },
   {
     name: "Slash",
-    url:'/public/images/icons/aTypes/slashIcon.png'
+    url:'/public/images/ui_Icons/aTypes/slashIcon.png'
   },
   {
     name: "Strike",
-    url:'/public/images/icons/aTypes/strikeIcon.png'
+    url:'/public/images/ui_Icons/aTypes/strikeIcon.png'
   }
 ]
 const ranks = [
-  {name: "S", url: "/public/images/icons/ranks/rankS.png"},
-  {name:"A", url: "/public/images/icons/ranks/rankA.png"}
+  {name: "S", url: "/public/images/ui_Icons/ranks/rankS.png"},
+  {name:"A", url: "/public/images/ui_Icons/ranks/rankA.png"}
 ]
 
 const factions = [
-  { name: "all", url:"/public/images/icons/factions/agents.png"},
-  { name: "Random Play/Yunkui Summit", url:"/public/images/icons/factions/randomPlay.png"},
-  { name: "Cunning Hares", url:"/public/images/icons/factions/cunningHares.png" },
-  { name: "Belobog Heavy Industries", url:"/public/images/icons/factions/belobogHeavyIndustries.png" },
-  { name: "Victoria Housekeeping Co.", url:"/public/images/icons/factions/victoriaHouseKeeping.png" },
-  { name: "Criminal Investigation Special Response Team", url:"/public/images/icons/factions/neps.png" }, //the faction with the longest name(Zhu Yuan mi vieja wei)
-  { name: "Hollow Special Operations Section 6 (H.A.N.D.)", url:"/public/images/icons/factions/hsos6.png" },
-  { name: "Sons of Calydon", url:"/public/images/icons/factions/sonsOfCalydon.png" },
-  { name: "Obol Squad (New Eridu Defense Force -- Obsidian Division)", url:"/public/images/icons/factions/obolSquad.png" },
-  { name: "Stars of Lyra", url:"/public/images/icons/factions/starsOfLyra.png" },
-  { name: "Defense Force -- Silver Squad", url:"/public/images/icons/factions/silverSquad.png" },
-  { name: "Mockingbird", url:"/public/images/icons/factions/mockingBird.png" },
-  { name: "Yunkui Summit", url:"/public/images/icons/factions/yunkuiSummit.png" },
+  { name: "all", url:"/public/images/ui_Icons/factions/agents.png"},
+  { name: "Random Play/Yunkui Summit", url:"/public/images/ui_Icons/factions/randomPlay.png"},
+  { name: "Cunning Hares", url:"/public/images/ui_Icons/factions/cunningHares.png" },
+  { name: "Belobog Heavy Industries", url:"/public/images/ui_Icons/factions/belobogHeavyIndustries.png" },
+  { name: "Victoria Housekeeping Co.", url:"/public/images/ui_Icons/factions/victoriaHouseKeeping.png" },
+  { name: "Criminal Investigation Special Response Team", url:"/public/images/ui_Icons/factions/neps.png" }, //the faction with the longest name(Zhu Yuan mi vieja wei)
+  { name: "Hollow Special Operations Section 6 (H.A.N.D.)", url:"/public/images/ui_Icons/factions/hsos6.png" },
+  { name: "Sons of Calydon", url:"/public/images/ui_Icons/factions/sonsOfCalydon.png" },
+  { name: "Obol Squad (New Eridu Defense Force -- Obsidian Division)", url:"/public/images/ui_Icons/factions/obolSquad.png" },
+  { name: "Stars of Lyra", url:"/public/images/ui_Icons/factions/starsOfLyra.png" },
+  { name: "Defense Force -- Silver Squad", url:"/public/images/ui_Icons/factions/silverSquad.png" },
+  { name: "Mockingbird", url:"/public/images/ui_Icons/factions/mockingBird.png" },
+  { name: "Yunkui Summit", url:"/public/images/ui_Icons/factions/yunkuiSummit.png" },
 ];
 
 function findIcon(arr : iconPropertiesType[], propName: string){
