@@ -54,7 +54,7 @@ export default function AgentCardBig({ id, rank, portrait, name, gender, height,
                 <img className="rounded-lg w-full h-auto object-cover" src={`https://gyyncgbcywxpoaifawlq.supabase.co/storage/v1/object/public/images${portrait}`} alt={`${name} portrait`} />
                 <Button onClick={() => handleFavorite(id)
                 } className="h-8 w-8 absolute translate-x-36 -translate-y-2 hover:scale-105">
-                    <img src={`/public/images/Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
+                    <img src={`/images/Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
                 </Button>
             </aside>
 

@@ -49,7 +49,7 @@ export default function AgentCardMedium({ id, rank, portrait, name, gender, heig
 
             <Button onClick={() => handleFavorite(id)
             } className="h-8 w-8 absolute translate-x-75 translate-y-36 hover:scale-105">
-                <img src={`/public/images/Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
+                <img src={`/images/Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`} alt="" className="h-8 w-8" />
             </Button>
             <section className="flex flex-col p-4 gap-2">
                 <div className="flex flex-col gap-3">
