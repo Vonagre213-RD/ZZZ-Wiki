@@ -1,5 +1,5 @@
 import type React from "react";
-import Button from "../atoms/Button";
+import Button from "@/components/atoms/Button";
 
 interface props {
     setFactionFilter: React.Dispatch<React.SetStateAction<string>>

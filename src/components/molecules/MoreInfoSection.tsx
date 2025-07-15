@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom"
 import useAgentsData from "@/hooks/useAgentsData"
-import AgentCardBig from "../atoms/AgentCardBig"
-import AgentCardMedium from "../atoms/AgentCardMedium"
+import AgentCardBig from "@/components/atoms/AgentCardBig"
+import AgentCardMedium from "@/components/atoms/AgentCardMedium"
 
-import SqueletonCardBig from "../atoms/squeletonCardBig"
-import SqueletonCardMedium from "../atoms/SqueletonCardMedium"
+import SqueletonCardBig from "@/components/atoms/SqueletonCardBig"
+import SqueletonCardMedium from "@/components/atoms/SqueletonCardMedium"
 
 export default function MoreInfoSection() {
     const { id } = useParams()
