@@ -4,7 +4,8 @@ type FilterActions =
   | { type: "SET_NAME_FILTER"; payload: string }
   | { type: "SET_FACTION_FILTER"; payload: string }
   | { type: "SET_ATTRIBUTE_FILTER"; payload: string }
-  | { type: "SET_SPECIALITY_FILTER"; payload: string };
+  | { type: "SET_SPECIALITY_FILTER"; payload: string }
+  | { type: "RESET" };
 
 type FilterState = {
   nameFilter: string;

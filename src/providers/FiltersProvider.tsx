@@ -23,18 +23,23 @@ type FilterActions =
   | { type: "SET_NAME_FILTER"; payload: string }
   | { type: "SET_FACTION_FILTER"; payload: string }
   | { type: "SET_ATTRIBUTE_FILTER"; payload: string }
-  | { type: "SET_SPECIALITY_FILTER"; payload: string };
+  | { type: "SET_SPECIALITY_FILTER"; payload: string }
+  | { type: "RESET"; };
 
 const reducer = (state: FilterState, action: FilterActions) => {
   switch (action.type) {
     case "SET_ATTRIBUTE_FILTER":
-      return { ...state, atributeFilter: action.payload };
+      return { ...state, attributeFilter: action.payload };
     case "SET_FACTION_FILTER":
       return { ...state, factionFilter: action.payload };
     case "SET_SPECIALITY_FILTER":
       return { ...state, specialtyFilter: action.payload };
     case "SET_NAME_FILTER":
       return { ...state, nameFilter: action.payload };
+    case "RESET":
+      return{
+        attributeFilter: "", factionFilter: "", specialtyFilter:"", nameFilter:""
+      }
     default:
       return state;
   }

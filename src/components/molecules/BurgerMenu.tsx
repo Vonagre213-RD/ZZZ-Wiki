@@ -10,14 +10,16 @@
 interface props {
   isOpen: boolean;
   children: React.ReactNode;
+  className?: string
 }
-export default function BurguerMenu({ isOpen, children }: props) {
+export default function BurguerMenu({className, isOpen, children }: props) {
   return (
     <div
       className={`
             w-full  transition-all duration-700 flex flex-col
              lg:flex-row lg:justify-center lg:items-center
-             lg:h-auto overflow-hidden lg:max-h-[500px]
+             overflow-hidden 
+             ${className}
             ${isOpen ? "max-h-[750px]" : "max-h-0"}
         `}
     >

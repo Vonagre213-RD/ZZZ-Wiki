@@ -8,7 +8,7 @@ interface buttonType {
 
 export default function Button({ onClick, children, className, title }: buttonType) {
   return (
-    <button className={className} onClick={onClick} title={title} type="button">
+    <button className={`focus:outline-none  ${className}`} onClick={onClick} title={title} type="button">
       {children}
     </button>
   );

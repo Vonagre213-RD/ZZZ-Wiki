@@ -57,18 +57,18 @@ export default function FactionFilterSection({isOpen} : props) {
     <BurguerMenu isOpen={isOpen}>
 
 
-      <section className="grid grid-cols-3 md:flex md:flex-wrap md:justify-center justify-items-center mt-4 gap-4">
+      <section className="grid grid-cols-3 md:flex md:flex-wrap md:justify-center justify-items-center  gap-4">
         {factionsArr.map((f) => (
           <Button
             key={f.name}
             onClick={() => handleSetFactionFilter(f.name)}
             className={`
-                h-20 w-20  leading-4 focus:outline-none font-titles 
+                h-18 w-18  leading-4 focus:outline-none font-titles 
                 flex justify-center items-center rounded-full border-2 border-fosfo-600
                 cursor-pointer
                 `}
           >
-            <img src={f.url} alt={`${f.name} logo in filter section`} className="h-18" />
+            <img src={f.url} alt={`${f.name} logo in filter section`} className="h-16 object-cover " />
           </Button>
         ))}
       </section>
