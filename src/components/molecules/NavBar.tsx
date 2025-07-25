@@ -1,5 +1,5 @@
-import { useContext, useState, type SetStateAction } from "react";
-import FiltersContext from "@/context/FiltersContext";
+import {useState, type SetStateAction } from "react";
+import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import { useLocation } from "react-router-dom";
 
 import NavButton from "../atoms/NavButton";
@@ -12,20 +12,17 @@ interface props {
   isModalOpen: boolean
   setIsModalOpen: React.Dispatch<SetStateAction<boolean>>
 }
-export default function NavBar({isModalOpen ,setIsModalOpen}: props) {
+export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
 
   const [isFilterSectionOpen, setIsFilterSectionOpen] = useState<boolean>(false)
   const [isAttributeFilterMenuOpen, setIsAttributeFilterMenuOpen] = useState<boolean>(false)
-      const [isSpecialtyFilterOpen, setIsSpecialtyFilterOpen] = useState<boolean>(false)
+  const [isSpecialtyFilterOpen, setIsSpecialtyFilterOpen] = useState<boolean>(false)
 
   const location = useLocation()
 
   const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
-  const context = useContext(FiltersContext)
-  if (!context) {
-    throw new Error("useAgentsDataFilter must be used within a FiltersProvider")
-  }
-  const { dispatch } = context
+  const { dispatch } = useFiltersContext();
+
   const routes = [
     { name: "home", path: "/" },
     { name: "favorites", path: "Favorites" }
@@ -38,7 +35,7 @@ export default function NavBar({isModalOpen ,setIsModalOpen}: props) {
   return (
     <nav
       className={`flex flex-col w-full lg:items-center transition-all duration-700 gap-4  overflow-scroll lg:overflow-hidden
-                    lg:flex-row lg:max-h-10 lg:justify-end`}
+                    lg:flex-row lg:max-h-10 lg:justify-end `}
     >
       {routes.map((b) => (
         <NavButton
@@ -53,32 +50,34 @@ export default function NavBar({isModalOpen ,setIsModalOpen}: props) {
       ))}
 
       <Button onClick={() => setIsModalOpen(!isModalOpen)} className={`hidden h-8 w-full p-2  bg-orange-500 font-titles  items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "lg:flex" : 'hidden'}`}>
-          Filtros
+        Filters
       </Button>
 
       <Button onClick={() => setIsFilterSectionOpen(!isFilterSectionOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        open factions section
+        {isSpecialtyFilterOpen ? "close" : "open"} factions section
       </Button>
 
       <Button onClick={() => setIsAttributeFilterMenuOpen(!isAttributeFilterMenuOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        open attributes section
+        {isAttributeFilterMenuOpen ? "close" : "open"}  attributes section
       </Button>
       <Button onClick={() => setIsSpecialtyFilterOpen(!isSpecialtyFilterOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        open Specialty section
+        {isSpecialtyFilterOpen ? "close" : "open"} Specialty section
       </Button>
 
       <input
         onChange={(e) => handleNamefilter(e)}
         type="text"
-        className={`bg-white p-1 rounded-md focus:outline-none font-titles lg:w-[50%] ${isNotInPath ? "flex" : 'hidden'}`}
+        className={`bg-white p-1 rounded-md focus:outline-none font-titles ${isNotInPath ? "flex" : 'hidden'}`}
         name="query"
         placeholder="Search character"
       />
       {isNotInPath && (
-        <span className={`lg:hidden `}>
-          <FactionFilterSection isOpen={isFilterSectionOpen} />
-          <AttributeFilterMenu isOpen={isAttributeFilterMenuOpen} />
-          <SpecialtyFilterMenu isOpen={isSpecialtyFilterOpen}></SpecialtyFilterMenu>
+        <span className={`lg:hidden overflow-scroll`}>
+          <div>
+            <FactionFilterSection isOpen={isFilterSectionOpen} />
+            <AttributeFilterMenu isOpen={isAttributeFilterMenuOpen} />
+            <SpecialtyFilterMenu isOpen={isSpecialtyFilterOpen}></SpecialtyFilterMenu>
+          </div>
         </span>
       )
       }

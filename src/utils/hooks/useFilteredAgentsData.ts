@@ -1,18 +1,11 @@
 import useAgentsData from "./useAgentsData";
-import { useContext } from "react";
-import FiltersContext from "@/context/FiltersContext";
+import useFiltersContext from "./useFiltersContext";
 
 export default function useFilteredAgentsData() {
 
     const { agentsData, isLoading } = useAgentsData()
 
-    const context = useContext(FiltersContext);
-
-    if (!context) {
-        throw new Error("useAgentsDataFilter must be used within a FiltersProvider");
-    }
-
-    const { state } = context;
+    const { state } = useFiltersContext();
 
     const filteredData = agentsData.filter((a) => {
         const matchesNames = state.nameFilter !== "N/A" && state.nameFilter !== "" ? a.name.toLowerCase().includes(state.nameFilter.toLowerCase()) : true;

@@ -1,6 +1,5 @@
 import Button from "@/components/atoms/Button";
-import { useContext } from "react";
-import FiltersContext from "@/context/FiltersContext";
+import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import { useLocation } from "react-router-dom";
 import BurguerMenu from "./BurgerMenu";
 
@@ -13,11 +12,8 @@ export default function FactionFilterSection({isOpen} : props) {
 
   const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
 
-  const context = useContext(FiltersContext)
-  if (!context) {
-    throw new Error("useAgentsDataFilter must be used within a FiltersProvider")
-  }
-  const { dispatch } = context
+    const { dispatch } = useFiltersContext();
+
 
   const handleSetFactionFilter = (factionName: string) => {
     dispatch({ type: "SET_FACTION_FILTER", payload: factionName })
@@ -57,7 +53,7 @@ export default function FactionFilterSection({isOpen} : props) {
     <BurguerMenu isOpen={isOpen}>
 
 
-      <section className="grid grid-cols-3 md:flex md:flex-wrap md:justify-center justify-items-center  gap-4">
+      <section className="grid grid-cols-3 lg:grid-cols-4 md:justify-center justify-items-center  gap-4">
         {factionsArr.map((f) => (
           <Button
             key={f.name}

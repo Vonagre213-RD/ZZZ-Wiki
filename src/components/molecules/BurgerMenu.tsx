@@ -1,26 +1,49 @@
-// interface props {
-//     setNameFilter: React.Dispatch<React.SetStateAction<string>>
-//     setFactionFilter: React.Dispatch<React.SetStateAction<string>>
-// }
-// { setNameFilter, setFactionFilter }: props
-//     const [isOpen, setIsOpen] = useState<boolean>(false)
-//     const routes = [
-//         { name: 'home', path: "/" }, { name: 'favorites', path: "Favorites" }]
+
+type animationsType =
+  | "Drop"
+  | "Left"
+
+interface props {
+  isOpen: boolean;
+  children: React.ReactNode;
+  className?: string;
+  animation?: animationsType;
+  blockScroll?: boolean;
+
+}
 
 interface props {
   isOpen: boolean;
   children: React.ReactNode;
   className?: string
 }
-export default function BurguerMenu({className, isOpen, children }: props) {
+export default function BurguerMenu({ className, isOpen, children, animation, blockScroll}: props) {
+  let openingAnimation;
+  let closingAnimation;
+
+  switch (animation) {
+    case "Drop":
+      openingAnimation = `max-h-[1250px]`;
+      closingAnimation = "max-h-0";
+      break;
+    case "Left":
+      openingAnimation = "max-w-[1200px]"
+      closingAnimation = "max-w-[0px]"
+      break;
+    default:
+      openingAnimation = "max-h-[1250px]";
+      closingAnimation = "max-h-0";
+  }
+
   return (
     <div
       className={`
-            w-full  transition-all duration-700 flex flex-col
-             lg:flex-row lg:justify-center lg:items-center
-             overflow-hidden 
+              transition-all duration-700 flex flex-col
+             lg:flex-row 
+              h-full
              ${className}
-            ${isOpen ? "max-h-[750px]" : "max-h-0"}
+            ${isOpen ? `${openingAnimation}` : `${closingAnimation}`}
+            ${blockScroll ? "overflow-hidden" : "overflow-auto"}
         `}
     >
       {children}

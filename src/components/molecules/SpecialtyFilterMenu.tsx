@@ -1,18 +1,9 @@
-import { useContext } from "react"
-// import { useLocation } from "react-router-dom";
-import FiltersContext from "@/context/FiltersContext"
+import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import BurguerMenu from "./BurgerMenu";
 import Button from "@/components/atoms/Button"
 export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
-    // const location = useLocation()
 
-    // const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
-
-    const context = useContext(FiltersContext)
-    if (!context) {
-        throw new Error("Attribute Filter Menu must be used within a FiltersProvider")
-    }
-    const { state, dispatch } = context
+    const { state, dispatch } = useFiltersContext();
 
     const specialties = [
         {
@@ -47,9 +38,9 @@ export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
     }
 
     return (
-        <BurguerMenu isOpen={isOpen}>
+        <BurguerMenu animation="Drop" isOpen={isOpen}>
 
-            <section className="grid grid-cols-3 md:flex md:flex-wrap md:justify-center justify-items-center mt-4 gap-4">
+            <section className="grid grid-cols-3 lg:grid-cols-3 md:justify-center justify-items-center mt-4 gap-4">
                 {specialties.map((a) => (
                     <Button
                         key={a.name}
