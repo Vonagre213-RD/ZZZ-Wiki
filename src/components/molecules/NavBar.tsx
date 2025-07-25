@@ -1,4 +1,4 @@
-import {useState, type SetStateAction } from "react";
+import { useState, type SetStateAction } from "react";
 import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import { useLocation } from "react-router-dom";
 
@@ -34,8 +34,8 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
 
   return (
     <nav
-      className={`flex flex-col w-full lg:items-center transition-all duration-700 gap-4  overflow-scroll lg:overflow-hidden
-                    lg:flex-row lg:max-h-10 lg:justify-end `}
+      className={`flex flex-col w-full transition-all duration-700 gap-4  overflow-scroll lg:overflow-hidden
+                    lg:flex-row lg:max-h-10 `}
     >
       {routes.map((b) => (
         <NavButton
@@ -53,6 +53,14 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
         Filters
       </Button>
 
+      <Button className={`h-8 w-full p-2  text-white  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 `}>
+        Login
+      </Button>
+      <Button className={`h-8 w-full p-2  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 `}>
+        register
+      </Button>
+
+
       <Button onClick={() => setIsFilterSectionOpen(!isFilterSectionOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
         {isSpecialtyFilterOpen ? "close" : "open"} factions section
       </Button>
@@ -67,7 +75,7 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
       <input
         onChange={(e) => handleNamefilter(e)}
         type="text"
-        className={`bg-white p-1 rounded-md focus:outline-none font-titles ${isNotInPath ? "flex" : 'hidden'}`}
+        className={`lg:hidden bg-white p-1 rounded-md focus:outline-none font-titles ${isNotInPath ? "flex" : 'hidden'}`}
         name="query"
         placeholder="Search character"
       />

@@ -19,11 +19,14 @@ export default function Header() {
   const [isFilterSectionOpen, setIsFilterSectionOpen] = useState<filtersType>("N/A")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const location = useLocation()
-  const {dispatch} = useFiltersContext()
+  const { dispatch } = useFiltersContext()
   const isInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
   console.log("path" + isInPath)
   const handleBurgerMenu = () => {
     setIsOpen(!isOpen)
+  }
+  const handleNamefilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "SET_NAME_FILTER", payload: e.target.value })
   }
   return (
     <>
@@ -35,7 +38,6 @@ export default function Header() {
           </Button>
         </span>
 
-
         <BurguerMenu animation="Drop" className={"lg:max-h-[500px]"} isOpen={isOpen}>
           <NavBar isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </BurguerMenu>
@@ -43,9 +45,9 @@ export default function Header() {
 
 
       {isInPath && (
-        <BurguerMenu className="text-white bg-neutral-800 fixed w-[300px] right-0 border-2 max-h-[300px] border-fosfo-500/50 z-10 rounded-2xl mt-4" blockScroll={true} animation="Left" isOpen={isModalOpen}>
+        <BurguerMenu className="text-white bg-neutral-800 fixed w-[300px] right-0 border-2 max-h-[350px] border-fosfo-500/50 z-10 rounded-2xl mt-4" blockScroll={true} animation="Left" isOpen={isModalOpen}>
           <div className="w-full p-4 gap-8 flex flex-col">
-            <Button onClick={() => dispatch({type: "RESET"})} className="h-8 w-full  p-2 focus:outline-none bg-red-500 font-titles flex items-center justify-center rounded-md text-black  ">
+            <Button onClick={() => dispatch({ type: "RESET" })} className="h-8 w-full  p-2 focus:outline-none bg-red-500 font-titles flex items-center justify-center rounded-md text-black  ">
               clear filters
             </Button>
             {['factions', 'attributes', "specialty"].map((p) => {
@@ -55,7 +57,15 @@ export default function Header() {
                 </Button>
               );
             })}
+            <input
+              onChange={(e) => handleNamefilter(e)}
+              type="text"
+              className={` bg-white text-black p-1 rounded-md focus:outline-none font-titles `}
+              name="query"
+              placeholder="Search character"
+            />
           </div>
+
 
         </BurguerMenu>
       )
