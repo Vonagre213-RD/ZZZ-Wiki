@@ -22,7 +22,7 @@ export default function MoreInfoSection() {
   const filterButtonClass = "h-8 w-[90vw] p-2 font-titles flex items-center justify-center rounded-md "
 
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-
+    e.preventDefault()
     const fields = new window.FormData(e.currentTarget)
     const { commentTextArea } = Object.fromEntries(fields.entries())
     const commentData = {
@@ -32,8 +32,7 @@ export default function MoreInfoSection() {
       commentContent: commentTextArea
     }
 
-    console.log(commentData)
-    await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/agentsComments", {
+    const response = await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/agentsComments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -41,7 +40,9 @@ export default function MoreInfoSection() {
       },
       body: JSON.stringify(commentData)
     })
-
+    if(response.status == 200){
+      window.location.reload()
+    }
   }
   if (!fullAgent || isLoading) {
     return (
