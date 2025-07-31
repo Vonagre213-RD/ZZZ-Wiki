@@ -22,7 +22,6 @@ export default function MoreInfoSection() {
   const filterButtonClass = "h-8 w-[90vw] p-2 font-titles flex items-center justify-center rounded-md "
 
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
 
     const fields = new window.FormData(e.currentTarget)
     const { commentTextArea } = Object.fromEntries(fields.entries())
