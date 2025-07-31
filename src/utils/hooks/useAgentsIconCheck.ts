@@ -132,6 +132,8 @@ export default function useIconCheck({
   }
 
   //uses before Name adjectives are the hook props, I say this because I spent two minutes figuring out because I forgot it :aivirgencita:
+  //26/07/2025 I can't figure out wth I wrote here
+  
   const attributeUrl = findIcon(attributes, attributeName || "");
   const specialtyUrl = findIcon(specialties, specialtyName || "");
   const typeUrl = findIcon(types, typeName || "");

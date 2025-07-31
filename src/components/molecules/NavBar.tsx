@@ -1,5 +1,6 @@
 import { useState, type SetStateAction } from "react";
 import useFiltersContext from "@/utils/hooks/useFiltersContext";
+import { useUserDataContext } from "@/utils/hooks/useUserDataContext";
 import { useLocation } from "react-router-dom";
 
 import NavButton from "../atoms/NavButton";
@@ -7,6 +8,11 @@ import Button from "../atoms/Button";
 import FactionFilterSection from "./FactionFilterSection";
 import AttributeFilterMenu from "./AttributeFilterMenu";
 import SpecialtyFilterMenu from "./SpecialtyFilterMenu";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
+
+type modalType = "login" | "register" | "N/A";
+type filterMenuType = "factions" | "attributes" | "specialty" | "N/A";
 
 interface props {
   isModalOpen: boolean
@@ -14,14 +20,14 @@ interface props {
 }
 export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
 
-  const [isFilterSectionOpen, setIsFilterSectionOpen] = useState<boolean>(false)
-  const [isAttributeFilterMenuOpen, setIsAttributeFilterMenuOpen] = useState<boolean>(false)
-  const [isSpecialtyFilterOpen, setIsSpecialtyFilterOpen] = useState<boolean>(false)
+  const [activeFilterMenu, setActiveFilterMenu] = useState<filterMenuType>("N/A");
+  const [activeModal, setActiveModal] = useState<modalType>("N/A");
 
   const location = useLocation()
 
   const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
   const { dispatch } = useFiltersContext();
+  const { state, dispatch: accountDispatch } = useUserDataContext()
 
   const routes = [
     { name: "home", path: "/" },
@@ -32,6 +38,33 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
     dispatch({ type: "SET_NAME_FILTER", payload: e.target.value })
   }
 
+  const handleLogout = async () => {
+    accountDispatch({type:"RESET"})
+    const credentials = {
+      user_id: state.user.user_id,
+      username: state.user.username
+    }
+    try {
+
+      await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/profile/logout", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(credentials)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+    finally {
+      localStorage.removeItem("zzzApiLoginCredentials")
+
+    }
+
+  }
+
+  const filterButtonClass = "lg:hidden animation-scale duration-500 h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40  hover:bg-orange-600 active:scale-90"
+  const accountLoginButtons = "h-8 w-full p-2  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 cursor-pointer hover:bg-indigo-600"
   return (
     <nav
       className={`flex flex-col w-full transition-all duration-700 gap-4  overflow-scroll lg:overflow-hidden
@@ -41,7 +74,7 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
         <NavButton
           key={b.name}
           activeClass="bg-fosfo-600"
-          className="h-8 w-full p-2 focus:outline-none bg-fosfo-500 font-titles flex items-center justify-center rounded-md
+          className="h-8 w-full p-2 focus:outline-none animation-scale duration-400 bg-fosfo-500 font-titles flex items-center justify-center rounded-md hover:bg-fosfo-550 active:scale-80
                         lg:w-40"
           to={`${b.path}`}
         >
@@ -49,27 +82,41 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
         </NavButton>
       ))}
 
-      <Button onClick={() => setIsModalOpen(!isModalOpen)} className={`hidden h-8 w-full p-2  bg-orange-500 font-titles  items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "lg:flex" : 'hidden'}`}>
+      <Button onClick={() => setIsModalOpen(!isModalOpen)} className={`hidden animation-scale duration-400 h-8 w-full p-2  bg-orange-500 font-titles  items-center justify-center rounded-md lg:w-40  hover:bg-orange-600 active:scale-80 ${isNotInPath ? "lg:flex" : 'hidden'}`}>
         Filters
       </Button>
 
-      <Button className={`h-8 w-full p-2  text-white  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 `}>
-        Login
-      </Button>
-      <Button className={`h-8 w-full p-2  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 `}>
-        register
-      </Button>
+      {
+        state.isloggedIn === false ? (
+          <>
+            <Button onClick={() => setActiveModal("login")} className={`${accountLoginButtons}  text-white `}>
+              Login
+            </Button>
+            <Button onClick={() => setActiveModal("register")} className={accountLoginButtons}>
+              register
+            </Button>
+          </>
+        ) : (
+          <>
+            <h2 className=" font-titles  h-8 w-full p-2  bg-blue-500 flex items-center justify-center rounded-md lg:max-w-40">{state.user.username}</h2>
+            <Button onClick={() => handleLogout()} className={`flex h-8 w-full p-2 animation-scale duration-400  bg-red-500 font-titles  items-center justify-center rounded-md lg:w-40 hover:bg-red-600 active:scale-80`}>
+              logout
+            </Button>
+          </>
+        )
+
+      }
 
 
-      <Button onClick={() => setIsFilterSectionOpen(!isFilterSectionOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        {isSpecialtyFilterOpen ? "close" : "open"} factions section
+      <Button onClick={() => setActiveFilterMenu(activeFilterMenu === "factions" ? "N/A" : "factions")} className={`${filterButtonClass} ${isNotInPath ? "flex" : 'hidden'}`}>
+        {activeFilterMenu === "factions" ? "close" : "open"} factions section
       </Button>
 
-      <Button onClick={() => setIsAttributeFilterMenuOpen(!isAttributeFilterMenuOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        {isAttributeFilterMenuOpen ? "close" : "open"}  attributes section
+      <Button onClick={() => setActiveFilterMenu(activeFilterMenu === "attributes" ? "N/A" : "attributes")} className={`${filterButtonClass} ${isNotInPath ? "flex" : 'hidden'}`}>
+        {activeFilterMenu === "attributes" ? "close" : "open"}  attributes section
       </Button>
-      <Button onClick={() => setIsSpecialtyFilterOpen(!isSpecialtyFilterOpen)} className={`lg:hidden h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40 ${isNotInPath ? "flex" : 'hidden'}`}>
-        {isSpecialtyFilterOpen ? "close" : "open"} Specialty section
+      <Button onClick={() => setActiveFilterMenu(activeFilterMenu === "specialty" ? "N/A" : "specialty")} className={`${filterButtonClass} ${isNotInPath ? "flex" : 'hidden'}`}>
+        {activeFilterMenu === "specialty" ? "close" : "open"} Specialty section
       </Button>
 
       <input
@@ -79,16 +126,20 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
         name="query"
         placeholder="Search character"
       />
-      {isNotInPath && (
-        <span className={`lg:hidden overflow-scroll`}>
-          <div>
-            <FactionFilterSection isOpen={isFilterSectionOpen} />
-            <AttributeFilterMenu isOpen={isAttributeFilterMenuOpen} />
-            <SpecialtyFilterMenu isOpen={isSpecialtyFilterOpen}></SpecialtyFilterMenu>
-          </div>
-        </span>
-      )
+      {
+        isNotInPath && (
+          <span className={`lg:hidden overflow-scroll`}>
+            <div>
+              <FactionFilterSection isOpen={activeFilterMenu === "factions"} />
+              <AttributeFilterMenu isOpen={activeFilterMenu === "attributes"} />
+              <SpecialtyFilterMenu isOpen={activeFilterMenu === "specialty"} />
+            </div>
+          </span>
+        )
       }
-    </nav>
+
+      <LoginModal isOpen={activeModal === "login"} setIsOpen={setActiveModal} />
+      <RegisterModal isOpen={activeModal === "register"} setIsOpen={setActiveModal} />
+    </nav >
   );
 }

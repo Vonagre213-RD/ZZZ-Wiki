@@ -6,7 +6,7 @@ const baseUrl = "https://zenlesszonezeroapi.onrender.com/characters/agents/";
 export default function useAgentsData() {
   const [agentsData, setAgentsData] = useState<AgentDataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<unknown>(undefined); 
+  const [error, setError] = useState<unknown>(undefined);
 
   useEffect(() => {
     const getAgents = async () => {
@@ -14,9 +14,11 @@ export default function useAgentsData() {
       try {
         setIsLoading(true);
 
-        const res = await fetch(baseUrl + "all");
+        const res = await fetch(baseUrl + "All");
+        
         const data: AgentDataType[] = await res.json();
 
+        console.log(data)
         setAgentsData(data);
         setIsLoading(false);
 
@@ -24,7 +26,7 @@ export default function useAgentsData() {
 
         setError(error);
         console.log(error);
-        
+
       }
     };
 

@@ -1,5 +1,5 @@
 export interface AgentDataType {
-  id: string;
+  agent_id: string;
   rank: string;
   imagesurl: {
     Avatar: string;

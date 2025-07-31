@@ -1,6 +1,6 @@
 export default function SqueletonCard() {
   return (
-    <article className=" min-w-[22rem] max-w-[22rem] bg-zinc-700 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-fosfo-500 transition-all duration-300 flex flex-col items-center gap-5 text-center font-titles text-zinc-500 animate-pulse">
+    <article className="min-w-[22rem] max-w-[22rem] lg:min-w-[17rem] lg:max-w-[17rem] bg-zinc-700 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-fosfo-500 transition-all duration-300 flex flex-col items-center gap-5 text-center font-titles text-zinc-500 animate-pulse">
       <div className="w-32 h-32 object-cover rounded-full border-4 border-fosfo-500 bg-zinc-500"></div>
 
       <div className="flex flex-col gap-2">

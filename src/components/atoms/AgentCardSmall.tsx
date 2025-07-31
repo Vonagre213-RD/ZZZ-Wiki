@@ -60,15 +60,15 @@ export default function AgentCardSmall({
 
   return (
     <article
-      className={`min-w-[22rem] max-w-[22rem] bg-zinc-800 text-zinc-200 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-fosfo-500 transition-all duration-500 flex flex-col items-center gap-5 text-center font-titles
+      className={`min-w-[22rem] max-w-[22rem] lg:min-w-[17rem] lg:max-w-[17rem] bg-zinc-800 text-zinc-200 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-fosfo-500 transition-all duration-500 flex flex-col items-center gap-5 text-center font-titles
             ${isAnimating ? "scale-50 opacity-0" : "scale-100 opacity-100"}
         `}
     >
-      {faction != "N/A" && <img className="h-26 w-26 " src={factionUrl} alt={`${faction} icon`} />}
+      {faction != "N/A" && <img className="h-26 w-26 lg:h-20 lg:w-20" src={factionUrl} alt={`${faction} icon`} />}
 
       {rank != "N/A" && (
         <img
-          className="h-8 w-8 absolute -translate-x-36 -translate-y-2"
+          className="h-8 w-8 absolute -translate-x-36 -translate-y-2 lg:-translate-x-28 lg:-translate-y-0.5 lg:h-6 lg:w-6"
           src={rankUrl}
           alt={`${rank} icon`}
         />
@@ -76,12 +76,12 @@ export default function AgentCardSmall({
 
       <Button
         onClick={() => handleFavorite(id)}
-        className="h-8 w-8 absolute translate-x-36 -translate-y-2 hover:scale-105"
+        className="h-8 w-8 absolute translate-x-36 -translate-y-2 hover:scale-105 lg:translate-x-28 lg:-translate-y-0.5 lg:h-6 lg:w-6"
       >
         <img
           src={`/images/ui_Icons/generals/${isFavUrl ? "iconStar2.png" : "iconStar1.png"}`}
           alt=""
-          className="h-8 w-8"
+          className="h-8 w-8 lg:h-6 lg:w-6"
         />
       </Button>
       <Button
@@ -92,33 +92,33 @@ export default function AgentCardSmall({
         <img
           src={`https://gyyncgbcywxpoaifawlq.supabase.co/storage/v1/object/public/images${avatar}`}
           alt={`${name} avatar Image`}
-          className="w-32 h-32 object-cover rounded-full border-4 border-fosfo-600"
+          className="w-32 h-32 object-cover rounded-full border-4 border-fosfo-600 lg:w-24 lg:h-24"
         />
       </Button>
 
       <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-semibold">{name}</h2>
-        <p className="text-sm text-fosfo-400 tracking-wide uppercase">{faction}</p>
+        <h2 className="text-2xl font-semibold lg:text-xl">{name}</h2>
+        <p className="text-sm text-fosfo-400 tracking-wide uppercase lg:text-xs">{faction}</p>
       </div>
 
       <div className="flex justify-center gap-8 w-full mt-2">
         <div className="flex flex-col items-center gap-1">
           {attribute != "N/A" && (
-            <img className="w-8 h-8" src={attributeUrl} alt={`${attribute} icon`} />
+            <img className="w-8 h-8 lg:w-6 lg:h-6" src={attributeUrl} alt={`${attribute} icon`} />
           )}
-          <span className="text-sm">{attribute}</span>
+          <span className="text-sm lg:text-xs">{attribute}</span>
         </div>
 
         <div className="flex flex-col items-center gap-1">
           {specialty != "N/A" && (
-            <img className="w-8 h-8" src={specialtyUrl} alt={`${specialty} icon`} />
+            <img className="w-8 h-8 lg:w-6 lg:h-6" src={specialtyUrl} alt={`${specialty} icon`} />
           )}
-          <span className="text-sm">{specialty}</span>
+          <span className="text-sm lg:text-xs">{specialty}</span>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          {type != "N/A" && <img className="w-8 h-8" src={typeUrl} alt={`${type} icon`} />}
-          <span className="text-sm">{type}</span>
+          {type != "N/A" && <img className="w-8 h-8 lg:w-6 lg:h-6" src={typeUrl} alt={`${type} icon`} />}
+          <span className="text-sm lg:text-xs">{type}</span>
         </div>
       </div>
     </article>

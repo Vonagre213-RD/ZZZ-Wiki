@@ -9,10 +9,10 @@ export default function FavoritesSection() {
     const { filteredData, isLoading } = useFilteredAgentsData()
     const { favorites } = useContext(FavoritesContext)
 
-    const favoritesAgent = filteredData.filter(a => favorites?.includes(a.id))
+    const favoritesAgent = filteredData.filter(a => favorites?.includes(a.agent_id))
 
     return (
-        <section className="p-4 w-full grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+        <section className="p-4 w-full grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
 
             {isLoading ?
                 (
@@ -20,14 +20,17 @@ export default function FavoritesSection() {
                         <SqueletonCard />
                         <SqueletonCard />
                         <SqueletonCard />
+                        <span className="hidden lg:flex">
+                            <SqueletonCard />
+                        </span>
                     </>
                 ) :
                 (
 
                     filteredData.length > 0 && (favoritesAgent.map(a => (
                         <AgentCardSmall
-                            key={a.id}
-                            id={a.id}
+                            key={a.agent_id}
+                            id={a.agent_id}
                             avatar={a.imagesurl.Avatar}
                             name={a.name}
                             faction={a.faction}
