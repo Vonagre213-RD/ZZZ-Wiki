@@ -11,28 +11,28 @@ interface LoginModalProps {
 
 export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
 
-  const [nameErrorMessage, setNameErrorMessage] = useState<string>("")
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("")
+  const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
 
-    setNameErrorMessage("")
-    setPasswordErrorMessage("")
-    event.preventDefault()
-    const fields = new window.FormData(event.currentTarget)
-    const { username, userpassword } = Object.fromEntries(fields.entries())
+    setNameErrorMessage("");
+    setPasswordErrorMessage("");
+    event.preventDefault();
+    const fields = new window.FormData(event.currentTarget);
+    const { username, userpassword } = Object.fromEntries(fields.entries());
     
     if (username.toString().length < 3) {
-      setNameErrorMessage("username must have more than three characters"); return
+      setNameErrorMessage("username must have more than three characters"); return;
     }
     if (userpassword.toString().length < 3) {
-      setPasswordErrorMessage("userpassword must have more than three characters"); return
+      setPasswordErrorMessage("userpassword must have more than three characters"); return;
     }
 
     const data = {
       username: username,
       userpassword: userpassword
-    }
-    const credentials = JSON.stringify(data)
+    };
+    const credentials = JSON.stringify(data);
 
     const response = await fetch("https://zenlesszonezeroapi.onrender.com//api/login", {
       method: "POST",
@@ -40,25 +40,25 @@ export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
         "Content-Type": "application/json"
       },
       body: credentials
-    })
+    });
 
-    const result = await response.json()
-    console.log(response)
+    const result = await response.json();
+    console.log(response);
 
     if (response.status == 200) {
-      setIsOpen('N/A')
-      localStorage.setItem("zzzApiLoginCredentials", result.token)
-      window.location.reload()
+      setIsOpen('N/A');
+      localStorage.setItem("zzzApiLoginCredentials", result.token);
+      window.location.reload();
     }
     else if (response.status === 402) {
-      setPasswordErrorMessage("Incorrect password")
+      setPasswordErrorMessage("Incorrect password");
     }
     else if (response.status === 403) {
-      setNameErrorMessage("Can't find user, check the introduced name")
+      setNameErrorMessage("Can't find user, check the introduced name");
     }
 
 
-  }
+  };
   return (
     <Modal isOpen={isOpen} className="flex items-center justify-center">
       <div className="bg-neutral-800 p-8 rounded-lg shadow-lg relative w-full max-w-xl min-h-[200px]">

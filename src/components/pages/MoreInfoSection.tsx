@@ -12,25 +12,25 @@ export default function MoreInfoSection() {
   const { id } = useParams();
   const { agentsData, isLoading } = useAgentsData();
 
-  const { comments } = useAgentsComment(id!)
+  const { comments } = useAgentsComment(id!);
 
-  const { state } = useUserDataContext()
+  const { state } = useUserDataContext();
   const fullAgent = agentsData.find((a) => a.agent_id === id);
 
   const token = localStorage.getItem("zzzApiLoginCredentials");
 
-  const filterButtonClass = "h-8 w-[90vw] p-2 font-titles flex items-center justify-center rounded-md "
+  const filterButtonClass = "h-8 w-[90vw] p-2 font-titles flex items-center justify-center rounded-md ";
 
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const fields = new window.FormData(e.currentTarget)
-    const { commentTextArea } = Object.fromEntries(fields.entries())
+    e.preventDefault();
+    const fields = new window.FormData(e.currentTarget);
+    const { commentTextArea } = Object.fromEntries(fields.entries());
     const commentData = {
       user_id: state.user.user_id,
       agent_id: id,
       username: state.user.username,
       commentContent: commentTextArea
-    }
+    };
 
     const response = await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/agentsComments", {
       method: "POST",
@@ -39,11 +39,11 @@ export default function MoreInfoSection() {
         authorization: `Bearer ${token}`
       },
       body: JSON.stringify(commentData)
-    })
+    });
     if(response.status == 200){
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
   if (!fullAgent || isLoading) {
     return (
       <div className="flex justify-center p-4">

@@ -8,16 +8,16 @@ interface props{
 }
 export default function FactionFilterSection({isOpen} : props) {
 
-  const location = useLocation()
+  const location = useLocation();
 
-  const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
+  const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true;
 
     const { dispatch } = useFiltersContext();
 
 
   const handleSetFactionFilter = (factionName: string) => {
-    dispatch({ type: "SET_FACTION_FILTER", payload: factionName })
-  }
+    dispatch({ type: "SET_FACTION_FILTER", payload: factionName });
+  };
   const factionsArr = [
     { name: "all_Agents", url: "/images/ui_Icons/factions/agents.png" },
     { name: "Random Play/Yunkui Summit", url: "/images/ui_Icons/factions/randomPlay.png" },

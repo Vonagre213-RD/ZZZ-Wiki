@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import type { AgentDataType } from "@/Types/agents";
 
 const baseUrl = "https://zenlesszonezeroapi.onrender.com/characters/agents/";
-
 export default function useAgentsData() {
   const [agentsData, setAgentsData] = useState<AgentDataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ export default function useAgentsData() {
         
         const data: AgentDataType[] = await res.json();
 
-        console.log(data)
+        console.log(data);
         setAgentsData(data);
         setIsLoading(false);
 

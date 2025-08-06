@@ -17,6 +17,9 @@ export default tseslint.config([
       reactRefresh.configs.vite,
       eslintConfigPrettier
     ],
+    rules:{
+      semi: ["error", "always"]
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser

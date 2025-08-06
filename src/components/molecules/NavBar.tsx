@@ -23,11 +23,11 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
   const [activeFilterMenu, setActiveFilterMenu] = useState<filterMenuType>("N/A");
   const [activeModal, setActiveModal] = useState<modalType>("N/A");
 
-  const location = useLocation()
+  const location = useLocation();
 
-  const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
+  const isNotInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true;
   const { dispatch } = useFiltersContext();
-  const { state, dispatch: accountDispatch } = useUserDataContext()
+  const { state, dispatch: accountDispatch } = useUserDataContext();
 
   const routes = [
     { name: "home", path: "/" },
@@ -35,15 +35,15 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
   ];
 
   const handleNamefilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "SET_NAME_FILTER", payload: e.target.value })
-  }
+    dispatch({ type: "SET_NAME_FILTER", payload: e.target.value });
+  };
 
   const handleLogout = async () => {
-    accountDispatch({type:"RESET"})
+    accountDispatch({type:"RESET"});
     const credentials = {
       user_id: state.user.user_id,
       username: state.user.username
-    }
+    };
     try {
 
       await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/profile/logout", {
@@ -52,19 +52,19 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
           "content-type": "application/json"
         },
         body: JSON.stringify(credentials)
-      })
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
     finally {
-      localStorage.removeItem("zzzApiLoginCredentials")
+      localStorage.removeItem("zzzApiLoginCredentials");
 
     }
 
-  }
+  };
 
-  const filterButtonClass = "lg:hidden animation-scale duration-500 h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40  hover:bg-orange-600 active:scale-90"
-  const accountLoginButtons = "h-8 w-full p-2  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 cursor-pointer hover:bg-indigo-600"
+  const filterButtonClass = "lg:hidden animation-scale duration-500 h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40  hover:bg-orange-600 active:scale-90";
+  const accountLoginButtons = "h-8 w-full p-2  bg-indigo-500 font-titles flex items-center justify-center rounded-md lg:w-40 cursor-pointer hover:bg-indigo-600";
   return (
     <nav
       className={`flex flex-col w-full transition-all duration-700 gap-4  overflow-scroll lg:overflow-hidden

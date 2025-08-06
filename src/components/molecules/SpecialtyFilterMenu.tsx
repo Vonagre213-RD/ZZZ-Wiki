@@ -1,6 +1,6 @@
 import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import BurguerMenu from "./BurgerMenu";
-import Button from "@/components/atoms/Button"
+import Button from "@/components/atoms/Button";
 export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
 
     const { state, dispatch } = useFiltersContext();
@@ -33,9 +33,9 @@ export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
     ];
 
     const handleSetAttributeFilter = (specialtyName: string) => {
-        dispatch({ type: "SET_SPECIALITY_FILTER", payload: specialtyName })
-        console.log(state.attributeFilter)
-    }
+        dispatch({ type: "SET_SPECIALITY_FILTER", payload: specialtyName });
+        console.log(state.attributeFilter);
+    };
 
     return (
         <BurguerMenu animation="Drop" isOpen={isOpen}>
@@ -56,5 +56,5 @@ export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
                 ))}
             </section>
         </BurguerMenu>
-    )
+    );
 }

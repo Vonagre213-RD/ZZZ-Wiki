@@ -11,7 +11,6 @@ const initialState: userDataState = {
     username: ""
   },
 };
-
 const reducer = (state: userDataState, action: userDataActions): userDataState => {
   switch (action.type) {
     case "SET_USER":

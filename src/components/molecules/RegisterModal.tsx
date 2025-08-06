@@ -10,30 +10,30 @@ interface RegisterModalProps {
 
 export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps) {
 
-  const [nameErrorMessage, setNameErrorMessage] = useState<string>("")
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("")
+  const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
-    setNameErrorMessage("")
-    setPasswordErrorMessage("")
+    setNameErrorMessage("");
+    setPasswordErrorMessage("");
 
-    event.preventDefault()
-    const fields = new window.FormData(event.currentTarget)
-    const { username, userpassword } = Object.fromEntries(fields.entries())
+    event.preventDefault();
+    const fields = new window.FormData(event.currentTarget);
+    const { username, userpassword } = Object.fromEntries(fields.entries());
 
     if (username.toString().length < 3) {
-      setNameErrorMessage("username must have more than three characters"); return
+      setNameErrorMessage("username must have more than three characters"); return;
     }
     if (userpassword.toString().length < 3) {
-      setPasswordErrorMessage("userpassword must have more than three characters"); return
+      setPasswordErrorMessage("userpassword must have more than three characters"); return;
     }
 
     const data = {
       username: username,
       userpassword: userpassword
-    }
+    };
 
-    const credentials = JSON.stringify(data)
+    const credentials = JSON.stringify(data);
 
     const response = await fetch("https://zenlesszonezeroapi.onrender.com/api/register", {
       method: "POST",
@@ -41,14 +41,14 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
         "Content-Type": "application/json"
       },
       body: credentials
-    })
+    });
 
     if (response.status == 200) {
-      setIsOpen('N/A')
-      localStorage.setItem("zzzApiLoginCredentials", credentials)
+      setIsOpen('N/A');
+      localStorage.setItem("zzzApiLoginCredentials", credentials);
     }
     else if (response.status === 401) {
-      setNameErrorMessage("duplicated username")
+      setNameErrorMessage("duplicated username");
     }
 
     const response2 = await fetch("https://zenlesszonezeroapi.onrender.com/api/login", {
@@ -57,17 +57,17 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
         "Content-Type": "application/json"
       },
       body: credentials
-    })
+    });
     if(response2.status == 200){
 
-      const result2 = await response2.json()
+      const result2 = await response2.json();
     
-     localStorage.setItem("zzzApiLoginCredentials", result2.token)
+     localStorage.setItem("zzzApiLoginCredentials", result2.token);
 
-     window.location.reload()
+     window.location.reload();
     }
 
-  }
+  };
 
   return (
     <Modal isOpen={isOpen} className="flex items-center justify-center">

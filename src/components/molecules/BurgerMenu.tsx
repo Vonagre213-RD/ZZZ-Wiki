@@ -27,8 +27,8 @@ export default function BurguerMenu({ className, isOpen, children, animation, bl
       closingAnimation = "max-h-0";
       break;
     case "Left":
-      openingAnimation = "max-w-[1200px]"
-      closingAnimation = "max-w-[0px]"
+      openingAnimation = "max-w-[1200px]";
+      closingAnimation = "max-w-[0px]";
       break;
     default:
       openingAnimation = "max-h-[1250px]";

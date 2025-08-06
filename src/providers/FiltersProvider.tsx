@@ -39,7 +39,7 @@ const reducer = (state: FilterState, action: FilterActions) => {
     case "RESET":
       return{
         attributeFilter: "", factionFilter: "", specialtyFilter:"", nameFilter:""
-      }
+      };
     default:
       return state;
   }

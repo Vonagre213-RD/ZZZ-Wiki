@@ -9,7 +9,7 @@ import { useUserDataContext } from "./utils/hooks/useUserDataContext";
 
 function App() {
 
-  const { dispatch } = useUserDataContext()
+  const { dispatch } = useUserDataContext();
 
 
 
@@ -19,21 +19,21 @@ function App() {
 
       try {
         if (!token) {
-          console.error("no token avaible"); return
+          console.error("no token avaible"); return;
         }
         const response = await fetch('https://zenlesszonezeroapi.onrender.com/api/auth/profile', {
           headers: {
             authorization: `Bearer ${token}`
           },
 
-        })
+        });
 
         if (response.status === 400) {
-          console.error("server error"); return
+          console.error("server error"); return;
         }
 
-        const data = await response.json()
-        console.log(data)
+        const data = await response.json();
+        console.log(data);
         dispatch({
           type: "SET_USER", payload: {
             isloggedIn: data.successful,
@@ -43,10 +43,10 @@ function App() {
               username: data.user.username
             }
           }
-        })
+        });
       }
       catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
 
@@ -54,9 +54,9 @@ function App() {
       return;
     }
     else {
-      initialLogin()
+      initialLogin();
     }
-  }, [])
+  }, []);
 
 
 

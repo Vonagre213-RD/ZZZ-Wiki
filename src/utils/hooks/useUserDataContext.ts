@@ -9,10 +9,10 @@ type userDataContextType = {
 };
 
 export function useUserDataContext():userDataContextType {
-    const context = useContext(userDataContext)
+    const context = useContext(userDataContext);
     if(!context){
-        throw new Error("context is undefined")
+        throw new Error("context is undefined");
     }
 
-    return context
+    return context;
 }

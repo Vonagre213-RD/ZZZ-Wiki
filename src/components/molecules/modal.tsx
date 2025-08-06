@@ -16,5 +16,5 @@ export default function Modal({ children, isOpen, className }: props) {
 
             {children}
         </section>
-    )
+    );
 }

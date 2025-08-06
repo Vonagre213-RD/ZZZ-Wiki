@@ -16,18 +16,18 @@ type filtersType =
 export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [isFilterSectionOpen, setIsFilterSectionOpen] = useState<filtersType>("N/A")
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const location = useLocation()
+  const [isFilterSectionOpen, setIsFilterSectionOpen] = useState<filtersType>("N/A");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const location = useLocation();
 
-  const { dispatch } = useFiltersContext()
-  const isInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true
+  const { dispatch } = useFiltersContext();
+  const isInPath = location.pathname !== "/" && location.pathname !== "/Favorites" ? false : true;
   const handleBurgerMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
   const handleNamefilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "SET_NAME_FILTER", payload: e.target.value })
-  }
+    dispatch({ type: "SET_NAME_FILTER", payload: e.target.value });
+  };
   return (
     <>
       <header className="flex-col bg-neutral-800 w-full min-h-20 p-4 flex lg:items-center sticky top-0 z-10 lg:flex lg:flex-row">

@@ -1,6 +1,6 @@
 import useFiltersContext from "@/utils/hooks/useFiltersContext";
 import BurguerMenu from "./BurgerMenu";
-import Button from "@/components/atoms/Button"
+import Button from "@/components/atoms/Button";
 export default function AttributeFilterMenu({ isOpen }: { isOpen: boolean }) {
 
      const { state, dispatch } = useFiltersContext();
@@ -37,9 +37,9 @@ export default function AttributeFilterMenu({ isOpen }: { isOpen: boolean }) {
         }
     ];
     const handleSetAttributeFilter = (attributeName: string) => {
-        dispatch({ type: "SET_ATTRIBUTE_FILTER", payload: attributeName })
-        console.log(state.attributeFilter)
-    }
+        dispatch({ type: "SET_ATTRIBUTE_FILTER", payload: attributeName });
+        console.log(state.attributeFilter);
+    };
 
     return (
         <BurguerMenu  isOpen={isOpen}>
@@ -60,5 +60,5 @@ export default function AttributeFilterMenu({ isOpen }: { isOpen: boolean }) {
                 ))}
             </section>
         </BurguerMenu>
-    )
+    );
 }

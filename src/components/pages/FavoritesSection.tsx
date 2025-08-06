@@ -1,15 +1,15 @@
-import AgentCardSmall from "@/components/atoms/AgentCardSmall.tsx"
-import SqueletonCard from "@/components/atoms/SqueletonCard.tsx"
-import useFilteredAgentsData from "@/utils/hooks/useFilteredAgentsData"
-import { useContext } from "react"
-import FavoritesContext from "@/context/FavoritesContext"
+import AgentCardSmall from "@/components/atoms/AgentCardSmall.tsx";
+import SqueletonCard from "@/components/atoms/SqueletonCard.tsx";
+import useFilteredAgentsData from "@/utils/hooks/useFilteredAgentsData";
+import { useContext } from "react";
+import FavoritesContext from "@/context/FavoritesContext";
 
 
 export default function FavoritesSection() {
-    const { filteredData, isLoading } = useFilteredAgentsData()
-    const { favorites } = useContext(FavoritesContext)
+    const { filteredData, isLoading } = useFilteredAgentsData();
+    const { favorites } = useContext(FavoritesContext);
 
-    const favoritesAgent = filteredData.filter(a => favorites?.includes(a.agent_id))
+    const favoritesAgent = filteredData.filter(a => favorites?.includes(a.agent_id));
 
     return (
         <section className="p-4 w-full grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
@@ -44,5 +44,5 @@ export default function FavoritesSection() {
 
 
         </section>
-    )
+    );
 }

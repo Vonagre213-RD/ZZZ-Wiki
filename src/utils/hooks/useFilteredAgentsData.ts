@@ -3,7 +3,7 @@ import useFiltersContext from "./useFiltersContext";
 
 export default function useFilteredAgentsData() {
 
-    const { agentsData, isLoading } = useAgentsData()
+    const { agentsData, isLoading } = useAgentsData();
 
     const { state } = useFiltersContext();
 

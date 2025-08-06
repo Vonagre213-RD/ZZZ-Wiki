@@ -12,16 +12,16 @@ interface ResponseData {
 }
 
 export default function useAgentsComment(agentId: string){
-    const [comments, setComments] = useState<Comment[]>()
+    const [comments, setComments] = useState<Comment[]>();
     useEffect(() => {
         const fetchComments = async() => {
-            const data = await fetch(`https://zenlesszonezeroapi.onrender.com/api/agentsComments/${agentId}`)
-            const parsedData: ResponseData = await data.json()
-            setComments(parsedData.comments)
-        }
+            const data = await fetch(`https://zenlesszonezeroapi.onrender.com/api/agentsComments/${agentId}`);
+            const parsedData: ResponseData = await data.json();
+            setComments(parsedData.comments);
+        };
 
-        fetchComments()
-    },[])
+        fetchComments();
+    },[]);
 
-    return {comments}
+    return {comments};
 }
