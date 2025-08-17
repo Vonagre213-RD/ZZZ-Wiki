@@ -35,7 +35,7 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
 
     const credentials = JSON.stringify(data);
 
-    const response = await fetch("https://zenlesszonezeroapi.onrender.com/api/register", {
+    const response = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -51,7 +51,7 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
       setNameErrorMessage("duplicated username");
     }
 
-    const response2 = await fetch("https://zenlesszonezeroapi.onrender.com/api/login", {
+    const response2 = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

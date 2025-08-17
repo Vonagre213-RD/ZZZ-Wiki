@@ -13,7 +13,7 @@ export default function useAgentsData() {
       try {
         setIsLoading(true);
 
-        const res = await fetch(baseUrl + "All");
+        const res = await fetch("https://zenless-zone-zero-api-private.onrender.com/All");
         
         const data: AgentDataType[] = await res.json();
 

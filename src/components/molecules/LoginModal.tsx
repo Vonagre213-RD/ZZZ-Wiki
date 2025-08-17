@@ -34,7 +34,7 @@ export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     };
     const credentials = JSON.stringify(data);
 
-    const response = await fetch("https://zenlesszonezeroapi.onrender.com//api/login", {
+    const response = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

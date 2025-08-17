@@ -21,7 +21,7 @@ function App() {
         if (!token) {
           console.error("no token avaible"); return;
         }
-        const response = await fetch('https://zenlesszonezeroapi.onrender.com/api/auth/profile', {
+        const response = await fetch('https://zenless-zone-zero-api-private.onrender.com/api/auth/profile', {
           headers: {
             authorization: `Bearer ${token}`
           },

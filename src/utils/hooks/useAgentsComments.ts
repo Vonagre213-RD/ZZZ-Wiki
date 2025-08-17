@@ -15,7 +15,7 @@ export default function useAgentsComment(agentId: string){
     const [comments, setComments] = useState<Comment[]>();
     useEffect(() => {
         const fetchComments = async() => {
-            const data = await fetch(`https://zenlesszonezeroapi.onrender.com/api/agentsComments/${agentId}`);
+            const data = await fetch(`https://zenless-zone-zero-api-private.onrender.com/api/agentsComments/${agentId}`);
             const parsedData: ResponseData = await data.json();
             setComments(parsedData.comments);
         };

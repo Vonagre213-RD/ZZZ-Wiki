@@ -32,7 +32,7 @@ export default function MoreInfoSection() {
       commentContent: commentTextArea
     };
 
-    const response = await fetch("https://zenlesszonezeroapi.onrender.com/api/auth/agentsComments", {
+    const response = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/auth/agentsComments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
