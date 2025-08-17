@@ -7,8 +7,10 @@ import useAgentsComment from "@/utils/hooks/useAgentsComments";
 
 import SqueletonCardBig from "@/components/atoms/SqueletonCardBig";
 import SqueletonCardMedium from "@/components/atoms/SqueletonCardMedium";
+import { useState } from "react";
 
 export default function MoreInfoSection() {
+  const [isDisabled, setIsDisabled] = useState(false);
   const { id } = useParams();
   const { agentsData, isLoading } = useAgentsData();
 
@@ -23,6 +25,7 @@ export default function MoreInfoSection() {
 
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsDisabled(true);
     const fields = new window.FormData(e.currentTarget);
     const { commentTextArea } = Object.fromEntries(fields.entries());
     const commentData = {
@@ -32,17 +35,21 @@ export default function MoreInfoSection() {
       commentContent: commentTextArea
     };
 
-    const response = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/auth/agentsComments", {
+    await fetch("https://zenless-zone-zero-api-private.onrender.com/api/auth/agentsComments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${token}`
       },
       body: JSON.stringify(commentData)
-    });
-    if(response.status == 200){
-      window.location.reload();
-    }
+    })
+      .then(res => {
+        if (res.ok) {
+          window.location.reload();
+          setIsDisabled(false);
+        }
+      });
+
   };
   if (!fullAgent || isLoading) {
     return (
@@ -98,7 +105,7 @@ export default function MoreInfoSection() {
       </span>
       <form onSubmit={(e) => handleCommentSubmit(e)} method="POST" className="flex flex-col">
         <textarea placeholder="comment content" className="bg-zinc-800 w-[90vw] h-20 resize-none mt-5  text-[0.75rem] text-white font-titles focus:outline-none border-2 border-fosfo-500 rounded-md" name="commentTextArea" />
-        <button className={`${filterButtonClass} mt-5 bg-fosfo-600`} type="submit">submit</button>
+        <button className={`${filterButtonClass} mt-5 bg-fosfo-600 ${isDisabled ? 'pointer-events-none': 'pointer-events-auto'}`} type="submit">submit</button>
       </form>
 
       {comments?.map((c) => (
