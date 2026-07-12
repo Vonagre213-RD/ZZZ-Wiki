@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "titles";
+  src: url("/src/assets/fonts/en-us.ttf");
+}
+
+@theme {
+  --color-fosfo-500: oklch(0.6945 0.2162 117.86);
+  --color-fosfo-550: oklch(0.8000 0.2119 117.86);
+  --color-fosfo-600: oklch(0.9117 0.2119 117.86);
+  --font-titles: "titles";
+}
+
+.bg-diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    oklch(26.862% 0.00003 271.152 / 0.356) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+body {
+  @apply bg-neutral-900;
+}
