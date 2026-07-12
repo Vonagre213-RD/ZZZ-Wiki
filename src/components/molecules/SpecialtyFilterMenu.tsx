@@ -3,7 +3,7 @@ import BurguerMenu from "./BurgerMenu";
 import Button from "@/components/atoms/Button";
 export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
 
-    const { state, dispatch } = useFiltersContext();
+    const { dispatch } = useFiltersContext();
 
     const specialties = [
         {

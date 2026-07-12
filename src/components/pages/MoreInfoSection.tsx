@@ -11,10 +11,6 @@ import { useState } from "react";
 import { isOk } from "@/Types/result";
 import { BASE_URL } from "@/Types/globals";
 
-interface CommentResponse {
-  successful: boolean;
-}
-
 export default function MoreInfoSection() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [commentError, setCommentError] = useState<string>("");

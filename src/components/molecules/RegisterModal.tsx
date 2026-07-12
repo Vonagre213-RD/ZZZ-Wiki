@@ -10,10 +10,6 @@ interface RegisterModalProps {
   setIsOpen: React.Dispatch<SetStateAction<"login" | "register" | "N/A">>;
 }
 
-interface LoginResponse {
-  token: string;
-}
-
 export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps) {
 
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");

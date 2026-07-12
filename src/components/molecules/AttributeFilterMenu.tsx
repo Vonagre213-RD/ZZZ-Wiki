@@ -3,7 +3,7 @@ import BurguerMenu from "./BurgerMenu";
 import Button from "@/components/atoms/Button";
 export default function AttributeFilterMenu({ isOpen }: { isOpen: boolean }) {
 
-     const { state, dispatch } = useFiltersContext();
+     const { dispatch } = useFiltersContext();
  
     const attributes = [
         { name: "all_Agents", url: "/images/ui_Icons/factions/agents.png" },

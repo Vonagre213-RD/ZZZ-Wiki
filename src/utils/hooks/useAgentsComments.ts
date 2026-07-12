@@ -8,11 +8,6 @@ type Comment = {
   commentdate: string;
 }
 
-interface ResponseData {
-  successful: boolean;
-  comments: Comment[];
-}
-
 export default function useAgentsComment(agentId: string){
     const [comments, setComments] = useState<Comment[]>([]);
     const [fetchError, setFetchError] = useState<string | null>(null);
