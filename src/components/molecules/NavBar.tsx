@@ -10,6 +10,8 @@ import AttributeFilterMenu from "./AttributeFilterMenu";
 import SpecialtyFilterMenu from "./SpecialtyFilterMenu";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import { isOk } from "@/Types/result";
+import { BASE_URL } from "@/Types/globals";
 
 type modalType = "login" | "register" | "N/A";
 type filterMenuType = "factions" | "attributes" | "specialty" | "N/A";
@@ -44,23 +46,26 @@ export default function NavBar({ isModalOpen, setIsModalOpen }: props) {
       user_id: state.user.user_id,
       username: state.user.username
     };
-    try {
 
-      await fetch("https://zenless-zone-zero-api-private.onrender.com/api/auth/profile/logout", {
+    try {
+      const response = await fetch(`${BASE_URL}/api/auth/profile/logout`, {
         method: "POST",
         headers: {
           "content-type": "application/json"
         },
         body: JSON.stringify(credentials)
       });
-    } catch (error) {
-      console.error(error);
-    }
-    finally {
-      localStorage.removeItem("zzzApiLoginCredentials");
 
+      const body = await response.json();
+
+      if (!isOk(body)) {
+        console.error(body.error.message);
+      }
+    } catch (e) {
+      console.error("fetch error:", e);
     }
 
+    localStorage.removeItem("zzzApiLoginCredentials");
   };
 
   const filterButtonClass = "lg:hidden animation-scale duration-500 h-8 w-full p-2  bg-orange-500 font-titles flex items-center justify-center rounded-md lg:w-40  hover:bg-orange-600 active:scale-90";

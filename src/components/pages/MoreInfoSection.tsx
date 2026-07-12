@@ -8,9 +8,16 @@ import useAgentsComment from "@/utils/hooks/useAgentsComments";
 import SqueletonCardBig from "@/components/atoms/SqueletonCardBig";
 import SqueletonCardMedium from "@/components/atoms/SqueletonCardMedium";
 import { useState } from "react";
+import { isOk } from "@/Types/result";
+import { BASE_URL } from "@/Types/globals";
+
+interface CommentResponse {
+  successful: boolean;
+}
 
 export default function MoreInfoSection() {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [commentError, setCommentError] = useState<string>("");
   const { id } = useParams();
   const { agentsData, isLoading } = useAgentsData();
 
@@ -26,6 +33,7 @@ export default function MoreInfoSection() {
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsDisabled(true);
+    setCommentError("");
     const fields = new window.FormData(e.currentTarget);
     const { commentTextArea } = Object.fromEntries(fields.entries());
     const commentData = {
@@ -35,20 +43,29 @@ export default function MoreInfoSection() {
       commentContent: commentTextArea
     };
 
-    await fetch("https://zenless-zone-zero-api-private.onrender.com/api/auth/agentsComments", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(commentData)
-    })
-      .then(res => {
-        if (res.ok) {
-          window.location.reload();
-          setIsDisabled(false);
-        }
+    try {
+      const response = await fetch(`${BASE_URL}/api/auth/agentsComments`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(commentData)
       });
+
+      const body = await response.json();
+
+      if (isOk(body)) {
+        window.location.reload();
+      } else {
+        setCommentError(body.error.message);
+        setIsDisabled(false);
+      }
+    } catch (e) {
+      console.error("fetch error:", e);
+      setCommentError(e instanceof Error ? e.message : String(e));
+      setIsDisabled(false);
+    }
 
   };
   if (!fullAgent || isLoading) {
@@ -105,6 +122,7 @@ export default function MoreInfoSection() {
       </span>
       <form onSubmit={(e) => handleCommentSubmit(e)} method="POST" className="flex flex-col">
         <textarea placeholder="comment content" className="bg-zinc-800 w-[90vw] h-20 resize-none mt-5  text-[0.75rem] text-white font-titles focus:outline-none border-2 border-fosfo-500 rounded-md" name="commentTextArea" />
+        {commentError && <h6 className="text-red-500 text-[0.75rem]">{commentError}</h6>}
         <button className={`${filterButtonClass} mt-5 bg-fosfo-600 ${isDisabled ? 'pointer-events-none': 'pointer-events-auto'}`} type="submit">submit</button>
       </form>
 

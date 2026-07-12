@@ -2,20 +2,28 @@ import React, { useState, type FormEvent, type SetStateAction } from "react";
 import Modal from "./modal";
 import Button from "../atoms/Button";
 import CloseIcon from "../../assets/svgs/CloseIcon";
+import { isOk } from "@/Types/result";
+import { BASE_URL } from "@/Types/globals";
 
 interface RegisterModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<SetStateAction<"login" | "register" | "N/A">>;
 }
 
+interface LoginResponse {
+  token: string;
+}
+
 export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps) {
 
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
+  const [networkError, setNetworkError] = useState<string>("");
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     setNameErrorMessage("");
     setPasswordErrorMessage("");
+    setNetworkError("");
 
     event.preventDefault();
     const fields = new window.FormData(event.currentTarget);
@@ -35,36 +43,42 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
 
     const credentials = JSON.stringify(data);
 
-    const response = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: credentials
-    });
+    try {
+      const registerResponse = await fetch(`${BASE_URL}/api/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: credentials
+      });
 
-    if (response.status == 200) {
+      const registerBody = await registerResponse.json();
+
+      if (!isOk(registerBody)) {
+        setNetworkError(registerBody.error.message);
+        return;
+      }
+
       setIsOpen('N/A');
       localStorage.setItem("zzzApiLoginCredentials", credentials);
-    }
-    else if (response.status === 401) {
-      setNameErrorMessage("duplicated username");
-    }
 
-    const response2 = await fetch("https://zenless-zone-zero-api-private.onrender.com/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: credentials
-    });
-    if(response2.status == 200){
+      const loginResponse = await fetch(`${BASE_URL}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: credentials
+      });
 
-      const result2 = await response2.json();
-    
-     localStorage.setItem("zzzApiLoginCredentials", result2.token);
+      const loginBody = await loginResponse.json();
 
-     window.location.reload();
+      if (isOk(loginBody)) {
+        localStorage.setItem("zzzApiLoginCredentials", loginBody.value.token);
+        window.location.reload();
+      }
+    } catch (e) {
+      console.error("fetch error:", e);
+      setNetworkError(e instanceof Error ? e.message : String(e));
     }
 
   };
@@ -94,6 +108,7 @@ export default function RegisterModal({ isOpen, setIsOpen }: RegisterModalProps)
             name="userpassword"
           />
           {passwordErrorMessage && <h6 className="text-red-500">{passwordErrorMessage}</h6>}
+          {networkError && <h6 className="text-red-500">{networkError}</h6>}
 
           <button type="submit" className="bg-indigo-600 rounded-full text-white p-2 mt-4">
             Submit

@@ -38,7 +38,7 @@ export default function AttributeFilterMenu({ isOpen }: { isOpen: boolean }) {
     ];
     const handleSetAttributeFilter = (attributeName: string) => {
         dispatch({ type: "SET_ATTRIBUTE_FILTER", payload: attributeName });
-        console.log(state.attributeFilter);
+
     };
 
     return (

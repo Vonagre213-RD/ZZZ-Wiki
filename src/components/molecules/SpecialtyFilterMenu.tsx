@@ -34,7 +34,7 @@ export default function SpecialtyFilterMenu({ isOpen }: { isOpen: boolean }) {
 
     const handleSetAttributeFilter = (specialtyName: string) => {
         dispatch({ type: "SET_SPECIALITY_FILTER", payload: specialtyName });
-        console.log(state.attributeFilter);
+
     };
 
     return (

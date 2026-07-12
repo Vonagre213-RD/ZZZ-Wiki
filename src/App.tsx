@@ -6,47 +6,47 @@ import FavoritesSection from "./components/pages/FavoritesSection";
 import MoreInfoSection from "@/components/pages/MoreInfoSection";
 import { Route, Routes } from "react-router-dom";
 import { useUserDataContext } from "./utils/hooks/useUserDataContext";
+import { isOk } from "@/Types/result";
+import { BASE_URL } from "@/Types/globals";
 
 function App() {
 
   const { dispatch } = useUserDataContext();
 
-
-
   const token = localStorage.getItem("zzzApiLoginCredentials");
   useEffect(() => {
     async function initialLogin() {
 
+      if (!token) {
+        console.error("no token avaible"); return;
+      }
+
       try {
-        if (!token) {
-          console.error("no token avaible"); return;
-        }
-        const response = await fetch('https://zenless-zone-zero-api-private.onrender.com/api/auth/profile', {
+        const response = await fetch(`${BASE_URL}/api/auth/profile`, {
           headers: {
             authorization: `Bearer ${token}`
           },
-
         });
 
-        if (response.status === 400) {
-          console.error("server error"); return;
+        const data = await response.json();
+
+        if (!isOk(data)) {
+          console.error(data.error.message);
+          return;
         }
 
-        const data = await response.json();
-        console.log(data);
         dispatch({
           type: "SET_USER", payload: {
-            isloggedIn: data.successful,
+            isloggedIn: data.value.successful,
             token: token,
             user: {
-              user_id: data.user.user_id,
-              username: data.user.username
+              user_id: data.value.user.user_id,
+              username: data.value.user.username
             }
           }
         });
-      }
-      catch (error) {
-        console.error(error);
+      } catch (e) {
+        console.error("fetch error:", e);
       }
     }
 

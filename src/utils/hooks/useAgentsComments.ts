@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { isOk } from "@/Types/result";
+import { BASE_URL } from "@/Types/globals";
 
 type Comment = {
   username: string;
@@ -12,16 +14,30 @@ interface ResponseData {
 }
 
 export default function useAgentsComment(agentId: string){
-    const [comments, setComments] = useState<Comment[]>();
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [fetchError, setFetchError] = useState<string | null>(null);
+
     useEffect(() => {
         const fetchComments = async() => {
-            const data = await fetch(`https://zenless-zone-zero-api-private.onrender.com/api/agentsComments/${agentId}`);
-            const parsedData: ResponseData = await data.json();
-            setComments(parsedData.comments);
+            try {
+                const response = await fetch(`${BASE_URL}/api/agentsComments/${agentId}`);
+                const body = await response.json();
+
+                if (isOk(body)) {
+                    setComments(body.value.comments);
+                } else {
+                    setFetchError(body.error.message);
+                    console.error(body.error.message);
+                }
+            } catch (e) {
+                console.error("fetch error:", e);
+                setFetchError(e instanceof Error ? e.message : String(e));
+                console.error(e);
+            }
         };
 
         fetchComments();
     },[]);
 
-    return {comments};
+    return {comments, error: fetchError};
 }
